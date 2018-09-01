@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React的复合式控件</title>
+    <style>
+
+    </style>
+   
+</head>
+<body>
+    <div id='exp1'></div>
+    <div id='exp2'></div>
+    <div id='exp3'></div>
+    <script type="text/javascript" src="./js/react.min.js"> </script>
+    <script type='text/javascript' src='./js/react-dom.min.js'></script>
+    <script type='text/javascript' src='./js/browser.min.js'></script>
+    <!--
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    -->
+    <script type='text/babel'>
+
+        var Letter=React.createClass({
+            render:function(){
+                var letterStyle={
+                    padding:20,
+                    margin:10,
+                    backgroundColor:this.props.bgcolor,
+                    display:"inline-block",
+                    textAlign:"center",
+                    fontSize:22,
+                    color:"#333",
+                };
+                return (
+                    <div className="letter" style={letterStyle}>
+                            <p>{this.props.children}</p>
+                    </div>
+                );
+            },
+        });
+        ReactDOM.render(
+            <div>
+                    <Letter bgcolor="red">T</Letter>
+                    <Letter bgcolor="yellow">L</Letter>
+                    <Letter bgcolor="pink">Y</Letter>
+                    <Letter bgcolor="blue">L</Letter>
+                    <Letter bgcolor="green">E</Letter>
+            </div>,
+            document.querySelector('#exp1')
+        );
+
+         var Square=React.createClass({
+            render:function(){
+                var squareStyle={
+                    height:150,
+                    backgroundColor:"#ff6663",
+                };
+                return (
+                    <div className="letter" style={squareStyle}>
+                        
+                    </div>
+                );
+            },
+        });
+
+        var Label=React.createClass({
+            getInitialState:function(){
+                return {
+                    strike:0,
+                };
+            },
+            timeStrike:function(){
+                this.setState({
+                    strike:this.state.strike+100,
+                });
+            },
+            componentDidMount:function(){
+                setInterval(this.timeStrike,10000);
+            },
+            render:function(){
+                var labelStyle={
+                    fontFamily:"sans-serif",
+                    fontWeight:"bold",
+                    padding:13,
+                    margin:0,
+                    color:"red",
+                };
+                return (
+                    <div style={labelStyle}>
+                        <p>{this.state.strike}</p>
+                    </div>
+                );
+            },
+        });
+
+        var Card=React.createClass({
+            render:function(){
+                var cardStyle={
+                height:200,
+                width:150,
+                backgroundColor:"#fff",
+                WebkitFilter:"drop-shadow(0px 0px 5px #666)",
+                filter:"drop-shadow(0px 0px 5px #666)",
+            };
+                return (
+                    <div style={cardStyle}>
+                        <Square/>
+                        <Label/>
+                    </div> 
+                );
+            },
+        });
+
+        ReactDOM.render(
+            <div>
+                <Card/>
+            </div>,
+            document.querySelector('#exp1')
+        );
+    </script>
+</body>
+</html>

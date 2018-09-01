@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img:hover {
+            content: url(img/1.jpg);
+            padding-left: 100px;
+        }
+        ol {
+            list-style-type: decimal;
+        }
+
+        .box {
+            width: 256px;
+            height: 256px;
+            text-align: justify;
+        }
+        .box::before {
+            height: 100%;
+            content: "";
+            display: inline-block;
+        }
+        .box::after{
+            width: 100%;
+            content: "";
+            display: inline-block;
+        }
+        .nav {
+            display: inline-block;
+            width: 20px;
+        }
+        dot {
+            display: inline-block;
+            height: 1em;
+            text-align: left;
+            line-height: 1;
+            vertical-align: -0.25em;
+            overflow: hidden;
+        }
+        dot::before {
+            content:"...\A..\A.";
+            display: block;
+            white-space: pre-wrap;
+            animation: dot 3s infinite step-start both; 
+        }
+        @keyframes dot {
+            33% {transform: translateY(-2em);}
+            66% {transform: translateY(-1em);}
+        }
+        .test > q {
+            quotes:'我想说："' '"你说呢!';
+        }
+        q:before {
+            content: open-quote;
+        }
+        q::after {
+            content:close-quote;
+        }
+        a + a::before {
+            content: "";
+            border-left: 1px solid gray;
+            font-size: 0px;
+            padding: 10px 3px 1px;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+    <img src="img/xiaoqian.jpg">
+    <p>《动物世界》</p>
+    <ol>
+        <li><input type="checkbox" value="哈根达斯">哈根达斯</li>
+    </ol>
+    <!--content辅助元素生成-->
+    <!-- <div class="box">
+        <i class="nav">1</i>
+        <i class="nav">2</i>
+        <i class="nav">3</i>
+    </div> -->
+    <!--content字符内容生成-->
+    正在加载中<dot>...</dot>
+    <!--content开启闭合符号生成-->
+    <p class="test"><q>i love dp!</q></p>
+    <a href="">登陆</a><a href="">注册</a>
+
+</body>
+</html>

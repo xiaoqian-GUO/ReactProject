@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React组件的生命周期</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/javascript" src="./js/react.min.js"> </script>
+    <script type='text/javascript' src='./js/react-dom.min.js'></script>
+    <script type='text/javascript' src='./js/browser.min.js'></script>
+    <script type="text/babel">
+        var destination=document.querySelector("#container");
+        var BackgroundButton=React.createClass({
+            getInitialState:function(){
+                return {
+                    count:0,
+                };
+            },
+            increase: function(e){
+                console.log('start increasing~~');
+                var currentCount=this.state.count;
+                if(e.ctrlKey){
+                    currentCount+=10;
+                }
+                else if(e.shiftKey){
+                    currentCount+=100;
+                }
+                else{
+                    currentCount+=1;
+                }
+                this.setState({
+                    count:currentCount
+                });
+            },
+            shouldComponentUpdate: function(newProps,newState){
+                if(newState.count<10000){
+                    console.log('increasing~~');
+                    return true;
+                }
+                else{
+                    console.log('stoping~~');
+                    ReactDOM.unmountComponentAtNode(destination);
+                    return false;
+                }
+            },
+            componentWillUpdate: function(){
+                console.log('component will update1');
+                return;
+            },
+            componentDidUpdate: function(){
+                console.log('component did update1');
+                return;
+            },
+            componentDidMount: function(){
+                console.log('component did mount');
+                return;
+            },
+            render:function(){
+                console.log('render1');
+                var backgroundStyle={
+                    padding:50,
+                    border:"#333 2px dotted",
+                    width:200,
+                    height:100,
+                    borderRadius:10,
+                    textAlign:"center",
+                    backgroundColor:"gray",
+                };
+                return (
+                    <div style={backgroundStyle}>
+                        <Text display={this.state.count} />
+                        <button onClick={this.increase}>+</button>
+                    </div>
+                );
+            },
+        });
+        var Text=React.createClass({
+            shouldComponentUpdate: function(newProps,newState){
+                console.log('should component update2');
+                return true;
+            },
+            componentWillUpdate: function(){
+                console.log('component will update2');
+                return;
+            },
+            componentDidUpdate: function(){
+                console.log('component did update2');
+                return;
+            },
+            componentWillReceiveProps: function(){
+                console.log('will receive props2');
+                return ;
+            },
+            render:function(){
+                console.log('render2');
+                var textStyle={
+                    fontSize:72,
+                    color:"#333",
+                    fontWeight:"bold",
+                    fontFamily:"sans-serif",
+                };
+                return (
+                    <div style={textStyle}>
+                        {this.props.display}
+                    </div>
+                );
+            },
+        });
+        ReactDOM.render(
+            <BackgroundButton />,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+</html>
